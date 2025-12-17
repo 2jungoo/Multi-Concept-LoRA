@@ -1,0 +1,58 @@
+# ============================================================
+# LoRA Training Configuration for Stable Diffusion 1.5
+# Optimized for H100 GPU
+# ============================================================
+
+[model]
+pretrained_model_name_or_path = "runwayml/stable-diffusion-v1-5"
+v2 = false
+v_parameterization = false
+
+[dataset]
+resolution = 512
+batch_size = 2  # H100에서는 2로 증가 가능
+enable_bucket = true
+min_bucket_reso = 256
+max_bucket_reso = 1024
+bucket_reso_steps = 64
+shuffle_caption = true
+keep_tokens = 1  # 트리거 워드 보존
+
+[training]
+max_train_epochs = 20
+save_every_n_epochs = 5
+mixed_precision = "bf16"  # H100은 bf16 지원
+gradient_checkpointing = true
+gradient_accumulation_steps = 1
+learning_rate = 1e-4
+unet_lr = 1e-4
+text_encoder_lr = 5e-5
+lr_scheduler = "cosine_with_restarts"
+lr_warmup_steps = 100
+lr_scheduler_num_cycles = 3
+optimizer_type = "AdamW8bit"
+max_grad_norm = 1.0
+seed = 42
+
+[lora]
+network_module = "networks.lora"
+network_dim = 32  # LoRA rank
+network_alpha = 16  # alpha = 0.5 * rank
+network_train_unet_only = false
+network_train_text_encoder_only = false
+network_dropout = 0.1  # Regularization
+
+[augmentation]
+flip_aug = true
+color_aug = true
+
+[logging]
+logging_dir = "./logs"
+log_with = "tensorboard"
+log_prefix = "lora"
+
+[save]
+output_dir = "./output"
+output_name = "lora_model"
+save_model_as = "safetensors"
+save_precision = "bf16"
