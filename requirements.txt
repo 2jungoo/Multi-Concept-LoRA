@@ -1,0 +1,47 @@
+# ============================================================
+# Multi-LoRA Fine-tuning Requirements
+# Tested on H100 with CUDA 12.1
+# ============================================================
+
+# Core PyTorch (H100 compatible)
+# Install separately with: pip install torch==2.2.0 torchvision==0.17.0 --index-url https://download.pytorch.org/whl/cu121
+torch==2.2.0
+torchvision==0.17.0
+torchaudio==2.2.0
+
+# Diffusion models
+diffusers==0.27.0
+transformers==4.38.0
+accelerate==0.27.0
+peft==0.9.0
+safetensors==0.4.2
+
+# Memory optimization
+bitsandbytes==0.42.0
+xformers==0.0.24
+
+# Image processing
+Pillow==10.2.0
+opencv-python==4.9.0.80
+albumentations==1.3.1
+scikit-image==0.22.0
+
+# Evaluation
+pytorch-fid==0.3.0
+scipy==1.12.0
+
+# Utilities
+numpy==1.26.4
+pandas==2.2.0
+matplotlib==3.8.3
+tqdm==4.66.2
+pyyaml==6.0.1
+toml==0.10.2
+
+# Logging
+tensorboard==2.16.2
+wandb==0.16.3
+
+# Optimizers
+lion-pytorch==0.1.2
+prodigyopt==1.0
